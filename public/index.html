@@ -2,93 +2,110 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Numora Marketplace</title>
-<meta name="theme-color" content="#111111">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTnVtb3JhIiwic2hvcnRfbmFtZSI6Ik51bW9yYSIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZmZmZmZmIiwidGhlbWVfY29sb3IiOiIjMTExMTExIn0=">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Numora</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif}
-body{background:#f8f8f9;color:#111;-webkit-font-smoothing:antialiased}
-.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;padding:10px 14px;gap:10px}
-.logo{font-weight:900;font-size:22px;letter-spacing:-1px;cursor:pointer}.logo span{color:#6c5ce7}
-.search{flex:1;background:#f1f1f3;border-radius:12px;padding:10px 12px;display:flex;gap:8px;align-items:center}
-.search input{border:0;background:transparent;outline:none;width:100%;font-size:13px}
-.page{display:none;min-height:80vh}.page.on{display:block}
-.hero{margin:12px;background:linear-gradient(135deg,#111,#2a2a2a);color:#fff;border-radius:18px;padding:18px}
-.grid{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#fff;border:1px solid #eee;border-radius:14px;overflow:hidden;cursor:pointer}
-.card:active{transform:scale(.98)}
-.thumb{height:110px;background:linear-gradient(135deg,#f8f8ff,#f1f0ff);display:flex;align-items:center;justify-content:center;font-size:32px}
-.info{padding:10px}.t{font-size:12px;font-weight:600;line-height:1.3;height:30px;overflow:hidden}.pr{font-weight:800;margin-top:4px}
-.formBox{padding:20px}.formCard{background:#fff;border-radius:18px;padding:22px;border:1px solid #eee;box-shadow:0 8px 30px rgba(0,0,0,.04)}
-.inp{width:100%;padding:14px;border:1px solid #ddd;border-radius:10px;margin-top:10px;font-size:14px;outline:none}
-.inp:focus{border-color:#111}
-.btn{width:100%;padding:14px;border-radius:12px;border:0;font-weight:800;cursor:pointer;margin-top:12px;font-size:14px}
-.btn-dark{background:#111;color:#fff}.btn-light{background:#f1f1f3;color:#111}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-top:1px solid #eee;display:flex;justify-content:space-around;padding:8px 0 12px;z-index:30}
-.bottom div{text-align:center;font-size:10px;color:#888;position:relative;cursor:pointer}
-.bottom div.on{color:#111;font-weight:700}.bottom span{font-size:20px;display:block}
-.badge{position:absolute;top:-4px;right:6px;background:#6c5ce7;color:#fff;font-size:9px;padding:2px 5px;border-radius:10px;font-weight:800}
-.prodHero{height:220px;background:#f8f8ff;display:flex;align-items:center;justify-content:center;font-size:80px}
+* { margin:0; padding:0; box-sizing:border-box; font-family:system-ui,sans-serif }
+body { background:#f6f6f8; color:#111 }
+.top { background:#fff; border-bottom:1px solid #eee; padding:12px; display:flex; gap:10px; align-items:center; position:sticky; top:0; z-index:10 }
+.logo { font-weight:900; font-size:20px }
+.logo span { color:#6c5ce7 }
+.search { flex:1; background:#f1f1f3; padding:10px; border-radius:10px; display:flex; gap:6px }
+.search input { border:0; background:transparent; outline:none; width:100% }
+.page { display:none; padding-bottom:80px }
+.page.on { display:block }
+.hero { margin:12px; background:#111; color:#fff; padding:18px; border-radius:16px }
+.grid { padding:12px; display:grid; grid-template-columns:1fr 1fr; gap:10px }
+.card { background:#fff; border:1px solid #eee; border-radius:12px; overflow:hidden }
+.thumb { height:100px; background:#f8f8ff; display:flex; align-items:center; justify-content:center; font-size:30px }
+.info { padding:10px }
+.btn { width:100%; padding:12px; border:0; border-radius:10px; font-weight:700; margin-top:10px }
+.btn-dark { background:#111; color:#fff }
+.btn-light { background:#eee; color:#111 }
+.inp { width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; margin-top:10px }
+.box { padding:16px }
+.cardForm { background:#fff; border:1px solid #eee; border-radius:16px; padding:20px; margin:16px }
+.bottom { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; display:flex; justify-content:space-around; padding:8px 0 }
+.bottom div { text-align:center; font-size:10px; color:#888 }
+.bottom div.on { color:#111 }
+.bottom span { font-size:18px; display:block }
+.badge { background:#6c5ce7; color:#fff; font-size:9px; padding:2px 5px; border-radius:10px; position:absolute; top:-5px; right:5px }
 </style>
 </head>
 <body>
 
 <div class="top">
 <div class="logo" onclick="go('home')">num<span>ora</span></div>
-<div class="search">🔍<input id="searchInput" placeholder="Search vaults..." oninput="renderProducts()"></div>
-<div id="authTop" style="display:flex;gap:6px;align-items:center"></div>
+<div class="search">🔍<input id="q" placeholder="Search..." oninput="render()"></div>
+<div id="auth"></div>
 </div>
 
 <div id="home" class="page on">
 <div class="hero">
-<div style="background:#6c5ce7;display:inline-block;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700">TRUSTED BY 12K+ USERS</div>
-<div style="font-size:20px;font-weight:900;margin-top:10px;line-height:1.1">Secure Your Crypto<br>Forever</div>
-<div id="welcomeText" style="font-size:12px;opacity:.7;margin-top:6px">Create account & get 70% OFF today</div>
+<div style="font-size:11px; opacity:.7">TRUSTED BY 12K+ USERS</div>
+<div style="font-size:20px; font-weight:800; margin-top:6px">Secure Your Crypto Forever</div>
+<div id="wel" style="font-size:12px; opacity:.6; margin-top:6px">Create account get 70% OFF</div>
 </div>
-<div id="productGrid" class="grid"></div>
+<div id="grid" class="grid"></div>
 </div>
 
-<div id="product" class="page">
-<div class="prodHero" id="pIcon">🔐</div>
-<div style="padding:16px;background:#fff;border-top:1px solid #eee">
-<div id="pName" style="font-size:18px;font-weight:800"></div>
-<div id="pRating" style="font-size:12px;color:#666;margin-top:4px"></div>
-<div id="pPrice" style="font-size:24px;font-weight:900;margin-top:10px"></div>
-<div style="margin-top:12px;display:flex;gap:6px"><span style="background:#f1f1f3;padding:6px 10px;border-radius:20px;font-size:11px">Free Delivery</span><span style="background:#f1f1f3;padding:6px 10px;border-radius:20px;font-size:11px">1 Year Warranty</span></div>
-<button class="btn btn-dark" onclick="addToCart(currentId)">Add to Cart — <span id="pPriceBtn"></span></button>
-<button class="btn btn-light" onclick="go('home')">← Back</button>
+<div id="view" class="page">
+<div id="vIcon" style="height:200px; background:#f8f8ff; display:flex; align-items:center; justify-content:center; font-size:60px"></div>
+<div class="box" style="background:#fff">
+<div id="vName" style="font-weight:800; font-size:18px"></div>
+<div id="vPrice" style="font-weight:900; font-size:22px; margin-top:8px"></div>
+<button class="btn btn-dark" onclick="addCart(cur)">Add to Cart</button>
+<button class="btn btn-light" onclick="go('home')">Back</button>
 </div>
 </div>
 
 <div id="cart" class="page">
-<div style="padding:16px"><h3>Cart 🛒</h3><div id="cartList" style="margin-top:12px"></div><div id="cartTotal" style="font-weight:900;margin-top:16px;font-size:18px"></div><button class="btn btn-dark" onclick="checkout()">Checkout</button><button class="btn btn-light" onclick="go('home')">Continue Shopping</button></div>
+<div class="box"><h3>Cart</h3><div id="cartList" style="margin-top:10px"></div><div id="total" style="font-weight:900; margin-top:12px"></div><button class="btn btn-dark" onclick="checkout()">Checkout</button><button class="btn btn-light" onclick="go('home')">Home</button></div>
 </div>
 
 <div id="login" class="page">
-<div class="formBox"><div class="formCard"><h3>Welcome back 👋</h3><p style="font-size:12px;color:#666;margin-top:4px">Login to Numora</p><input id="lEmail" class="inp" placeholder="Email address" type="email"><input id="lPass" class="inp" placeholder="Password" type="password"><button class="btn btn-dark" onclick="doLogin()">Login</button><p style="text-align:center;font-size:13px;margin-top:12px">No account? <b style="text-decoration:underline;cursor:pointer" onclick="go('signup')">Create account</b></p></div></div>
+<div class="cardForm"><h3>Login</h3><input id="le" class="inp" placeholder="Email"><input id="lp" class="inp" type="password" placeholder="Password"><button class="btn btn-dark" onclick="login()">Login</button><p style="text-align:center; margin-top:10px; font-size:13px" onclick="go('signup')">Create account</p></div>
 </div>
 
 <div id="signup" class="page">
-<div class="formBox"><div class="formCard"><h3>Create account ✨</h3><p style="font-size:12px;color:#666;margin-top:4px">Join 12k+ securing crypto</p><input id="sName" class="inp" placeholder="Full name"><input id="sEmail" class="inp" placeholder="Email address" type="email"><input id="sPass" class="inp" placeholder="Password (min 6)" type="password"><button class="btn btn-dark" onclick="doSignup()">Create Account</button><p style="text-align:center;font-size:13px;margin-top:12px">Have account? <b style="text-decoration:underline;cursor:pointer" onclick="go('login')">Login</b></p></div></div>
+<div class="cardForm"><h3>Create Account</h3><input id="sn" class="inp" placeholder="Full name"><input id="se" class="inp" placeholder="Email"><input id="sp" class="inp" type="password" placeholder="Password"><button class="btn btn-dark" onclick="signup()">Create</button><p style="text-align:center; margin-top:10px; font-size:13px" onclick="go('login')">Login</p></div>
 </div>
 
 <div id="admin" class="page">
-<div class="formBox"><div class="formCard"><h3>Admin — Add Product ⚙️</h3><input id="aName" class="inp" placeholder="Product name"><input id="aPrice" class="inp" type="number" placeholder="Price e.g 29"><input id="aIcon" class="inp" placeholder="Icon emoji e.g 🔐"><button class="btn btn-dark" onclick="addProduct()">Add Product</button><button class="btn btn-light" onclick="go('home')">Back Home</button></div></div>
+<div class="cardForm"><h3>Admin</h3><input id="an" class="inp" placeholder="Product name"><input id="ap" class="inp" type="number" placeholder="Price"><input id="ai" class="inp" placeholder="Emoji e.g. 🔐"><button class="btn btn-dark" onclick="addProd()">Add Product</button><button class="btn btn-light" onclick="go('home')">Home</button></div>
 </div>
 
 <div class="bottom">
 <div class="on" onclick="go('home')"><span>🏠</span>Home</div>
-<div onclick="go('cart')"><span>🛒</span>Cart<div id="cartBadge" class="badge" style="display:none">0</div></div>
+<div onclick="go('cart')" style="position:relative"><span>🛒</span>Cart<div id="bc" class="badge" style="display:none">0</div></div>
 <div onclick="go('admin')"><span>⚙️</span>Admin</div>
-<div onclick="handleYou()"><span>👤</span><span id="youLabel">You</span></div>
+<div onclick="you()"><span>👤</span>You</div>
 </div>
 
 <script>
-const defaultProducts=[
-{id:1,name:"Premium Encrypted Vault",price:29,icon:"🔐",rating:"⭐ 4.9 • 2.3k sold • Free delivery"},
-{id:2,name:"Secure Wallet Bundle",price:19,icon:"💼",rating:"⭐ 4.8 • 1.1k sold"},
-{id:3,name:"Armored Vault Pro",price:39,icon:"🛡️",rating:"⭐ 5.0 • 892 sold"},
-{id:4,name:"Private Key Locker",price:15,icon:"🔑",rating:"⭐ 4.9 • 3k sold"},
-{id:5,name:"Diamond Secure Box",price:59,icon:"💎",rating:"⭐ 4.7 • 567 sold"},
-{id:6,name:"Starter Vault Kit",price:9,icon:"📦",rating:"
+let base = [
+{id:1,name:"Premium Vault",price:29,icon:"🔐"},
+{id:2,name:"Wallet Bundle",price:19,icon:"💼"},
+{id:3,name:"Armored Vault",price:39,icon:"🛡️"},
+{id:4,name:"Key Locker",price:15,icon:"🔑"}
+];
+let cur = null;
+function getP(){ return JSON.parse(localStorage.getItem('p')||JSON.stringify(base)) }
+function saveP(d){ localStorage.setItem('p',JSON.stringify(d)) }
+function getC(){ return JSON.parse(localStorage.getItem('c')||'[]') }
+function go(id){ document.querySelectorAll('.page').forEach(x=>x.classList.remove('on')); document.getElementById(id).classList.add('on'); if(id=='cart') showCart() }
+function render(){ let q=document.getElementById('q').value.toLowerCase(); let list=getP().filter(x=>x.name.toLowerCase().includes(q)); document.getElementById('grid').innerHTML=list.map(p=>`<div class="card" onclick="openV(${p.id})"><div class="thumb">${p.icon}</div><div class="info"><div style="font-size:12px; font-weight:600">${p.name}</div><div style="font-weight:800; margin-top:4px">$${p.price}</div></div></div>`).join('') }
+function openV(id){ let p=getP().find(x=>x.id==id); cur=id; document.getElementById('vIcon').textContent=p.icon; document.getElementById('vName').textContent=p.name; document.getElementById('vPrice').textContent='$'+p.price; go('view') }
+function addCart(id){ let c=getC(); let f=c.find(x=>x.id==id); if(f) f.q++; else c.push({id,q:1}); localStorage.setItem('c',JSON.stringify(c)); ui(); alert('Added to cart') }
+function showCart(){ let c=getC(); let pr=getP(); let total=0; let box=document.getElementById('cartList'); if(c.length==0){ box.innerHTML='Empty'; document.getElementById('total').textContent=''; return } box.innerHTML=c.map(x=>{ let p=pr.find(z=>z.id==x.id); total+=p.price*x.q; return `<div style="background:#fff; border:1px solid #eee; padding:10px; border-radius:10px; margin-top:8px; display:flex; justify-content:space-between">${p.icon} ${p.name} x${x.q} <b>$${p.price*x.q}</b></div>` }).join(''); document.getElementById('total').textContent='Total $'+total }
+function checkout(){ if(!localStorage.getItem('u')){ go('login'); return } alert('Order placed!'); localStorage.removeItem('c'); ui(); go('home') }
+function signup(){ let n=document.getElementById('sn').value, e=document.getElementById('se').value, p=document.getElementById('sp').value; if(!n||!e||!p) return alert('Fill all'); let users=JSON.parse(localStorage.getItem('users')||'[]'); users.push({n,e,p}); localStorage.setItem('users',JSON.stringify(users)); localStorage.setItem('u',JSON.stringify({name:n})); go('home'); ui() }
+function login(){ let e=document.getElementById('le').value, p=document.getElementById('lp').value; let users=JSON.parse(localStorage.getItem('users')||'[]'); let u=users.find(x=>x.e==e&&x.p==p); if(!u) return alert('Wrong'); localStorage.setItem('u',JSON.stringify({name:u.n})); go('home'); ui() }
+function logout(){ localStorage.removeItem('u'); ui(); go('home') }
+function you(){ let u=localStorage.getItem('u'); if(u) logout(); else go('login') }
+function addProd(){ let n=document.getElementById('an').value, p=parseInt(document.getElementById('ap').value), i=document.getElementById('ai').value||'📦'; if(!n||!p) return alert('Fill'); let list=getP(); list.push({id:Date.now(),name:n,price:p,icon:i}); saveP(list); render(); go('home') }
+function ui(){ let u=JSON.parse(localStorage.getItem('u')||'null'); document.getElementById('auth').innerHTML=u?`<b style="font-size:12px">${u.name}</b> <button onclick="logout()" style="padding:6px 8px; border-radius:6px; border:0; background:#eee">Out</button>`:`<button onclick="go('login')" style="padding:6px 10px; border-radius:6px; border:0; background:#eee">Login</button> <button onclick="go('signup')" style="padding:6px 10px; border-radius:6px; border:0; background:#111; color:#fff">Sign up</button>`; document.getElementById('wel').textContent=u?'Welcome back, '+u.name:'Create account get 70% OFF'; let c=getC(); let count=c.reduce((a,b)=>a+b.q,0); let b=document.getElementById('bc'); b.textContent=count; b.style.display=count>0?'block':'none' }
+render(); ui();
+</script>
+</body>
+</html>
