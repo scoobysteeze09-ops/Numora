@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Numora - Private Key Vault</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:system-ui;background:#0b0e14;color:#fff;text-align:center;padding:60px 20px;margin:0}
+h1{font-size:32px;color:#8b7cff}
+.card{background:#151a27;padding:25px;border-radius:16px;max-width:420px;margin:30px auto;border:1px solid #2a3042}
+button{background:#6c5ce7;color:white;padding:14px 28px;border:none;border-radius:10px;font-size:16px;width:100%;margin-top:10px}
+.status{color:#00ff88;margin-top:15px}
+</style>
+</head>
+<body>
+<h1>Numora 🔐</h1>
+<p>Secure Crypto Vault - LIVE</p>
+<div class="card">
+<h3>Platform Status</h3>
+<p id="status">Checking...</p>
+<button onclick="check()">Check API Health</button>
+<button onclick="location.href='/api/health'">View API</button>
+</div>
+<script>
+async function check(){
+ document.getElementById('status').innerText='Loading...';
+ try{
+  let r=await fetch('/api/health');
+  let j=await r.json();
+  document.getElementById('status').innerText='✅ LIVE - '+j.status;
+ }catch(e){document.getElementById('status').innerText='❌ Offline'}
+}
+check();
+</script>
+</body>
+</html>
